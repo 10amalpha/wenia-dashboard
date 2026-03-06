@@ -13,7 +13,7 @@ const SPONSOR = {
   name: "Wenia",
   logo: null,
   tier: "Patrocinador",
-  totalInvestment: 10500,
+  totalInvestment: 4000,
 };
 
 const EPISODES = [
