@@ -386,6 +386,41 @@ export default function WeniaDashboard() {
           })}
         </div>
 
+        {/* ─── SHORTS REACH ─── */}
+        <a href="https://10ampro-shorts-analytics.vercel.app/" target="_blank" rel="noopener noreferrer"
+          style={{
+            display: "block", textDecoration: "none",
+            background: "rgba(255,255,255,0.02)",
+            border: "1px solid rgba(255,255,255,0.05)",
+            borderRadius: 12, padding: "20px", marginBottom: 28,
+            transition: "border-color 0.2s",
+          }}
+          onMouseOver={(e) => e.currentTarget.style.borderColor = "rgba(212,168,67,0.2)"}
+          onMouseOut={(e) => e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"}
+        >
+          <div style={{
+            display: "flex", justifyContent: "space-between", alignItems: "center",
+            flexWrap: "wrap", gap: 12,
+          }}>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "#A1A1AA", marginBottom: 4 }}>
+                Alcance adicional vía Shorts
+              </div>
+              <div style={{ fontSize: 11, color: "#52525B" }}>
+                Clips cortos de cada episodio distribuidos en TikTok, Instagram, YouTube Shorts y X — amplificando el alcance de tu marca más allá del episodio completo.
+              </div>
+            </div>
+            <div style={{
+              fontSize: 11, fontWeight: 600, color: "#D4A843",
+              background: "rgba(212,168,67,0.1)",
+              padding: "6px 14px", borderRadius: 6,
+              whiteSpace: "nowrap",
+            }}>
+              Ver analytics en vivo ↗
+            </div>
+          </div>
+        </a>
+
         {/* ─── AUDIENCE CONTEXT ─── */}
         <div style={{
           background: "rgba(255,255,255,0.02)",
