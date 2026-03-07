@@ -255,10 +255,10 @@ export default function WeniaDashboard() {
           {[
             { label: "Episodios", value: EPISODES.length, icon: "🎙️", color: "#D4A843" },
             { label: "Views YouTube", value: hasData ? fmt(totals.ytViews) : ytLoading ? "..." : "—", icon: "▶", color: "#FF0000" },
-            { label: "Spotify Plays", value: totals.spPlays > 0 ? fmt(totals.spPlays) : "—", icon: "♫", color: "#1DB954" },
-            { label: "Apple Est.", value: totals.appleEstimate > 0 ? "~" + fmt(totals.appleEstimate) : "—", icon: "🎧", color: "#A855F7", note: "estimado" },
-            { label: "Horas Escuchadas", value: totals.spHours > 0 ? fmt(totals.spHours) + "h" : "—", icon: "⏱", color: "#1DB954" },
+            { label: "Plays Spotify", value: totals.spPlays > 0 ? fmt(totals.spPlays) : "—", icon: "♫", color: "#1DB954" },
+            { label: "Est. Apple Pods", value: totals.appleEstimate > 0 ? "~" + fmt(totals.appleEstimate) : "—", icon: "🎧", color: "#A855F7" },
             { label: "Impresiones Totales", value: hasData ? fmt(totals.totalImpressions) : ytLoading ? "..." : "—", icon: "👁", color: "#818CF8" },
+            { label: "CPM Efectivo", value: hasData ? fmtUSD(Math.round(totals.cpm)) : "—", icon: "💰", color: "#22C55E" },
           ].map((kpi, i) => (
             <div key={i} style={{
               background: "rgba(255,255,255,0.02)",
@@ -372,8 +372,8 @@ export default function WeniaDashboard() {
                   {[
                     { label: "Views YT", value: views, color: "#FF0000", isYt: true },
                     { label: "Likes YT", value: likes, color: "#F59E0B", isYt: true },
-                    { label: "Spotify Plays", value: ep.spotify.plays, color: "#1DB954", isYt: false },
-                    { label: "Listen Hours", value: ep.spotify.consumptionHrs, color: "#1DB954", isYt: false },
+                    { label: "Plays Spotify", value: ep.spotify.plays, color: "#1DB954", isYt: false },
+                    { label: "Hrs Consumo", value: ep.spotify.consumptionHrs, color: "#1DB954", isYt: false },
                   ].map((stat, j) => (
                     <div key={j} style={{
                       background: "rgba(255,255,255,0.02)",
