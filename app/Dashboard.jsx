@@ -23,7 +23,7 @@ const EPISODES = [
     date: "2026-01-29",
     videoId: "PdTGv5Z71SE",
     youtubeUrl: "https://youtu.be/PdTGv5Z71SE",
-    spotifyUrl: "https://open.spotify.com/episode/E191",
+    spotifyUrl: "https://open.spotify.com/episode/6aM1jKEPafXHAHlu5LlCez",
     appleUrl: "https://podcasts.apple.com/us/podcast/e191-las-5-se%C3%B1ales-del-cambio-de-era-hern%C3%A1n-dar%C3%ADo/id1661010704?i=1000747145276",
     spotify: { plays: 6000, consumptionHrs: 2133, medianTime: "35m 59s", videoViewers: 1472, videoViewerPct: 76.6, watchHrs: 952 },
     apple: { plays: null },
@@ -34,7 +34,7 @@ const EPISODES = [
     date: "2026-02-26",
     videoId: "5QWEatCbScI",
     youtubeUrl: "https://youtu.be/5QWEatCbScI",
-    spotifyUrl: "https://open.spotify.com/episode/E196",
+    spotifyUrl: "https://open.spotify.com/episode/0vDtyoSUsQdMLfm9qGMOtt",
     appleUrl: "https://podcasts.apple.com/us/podcast/e196-colombia-vs-argentina-modelo-econ%C3%B3mico-y-batalla/id1661010704?i=1000751721814",
     spotify: { plays: 2661, consumptionHrs: 919, medianTime: "53m 24s", videoViewers: 727, videoViewerPct: 71.2, watchHrs: 372 },
     apple: { plays: null },
@@ -45,7 +45,7 @@ const EPISODES = [
     date: "2026-03-05",
     videoId: "leDK2mccGWM",
     youtubeUrl: "https://youtu.be/leDK2mccGWM",
-    spotifyUrl: "https://open.spotify.com/episode/E198",
+    spotifyUrl: "https://open.spotify.com/episode/2Cv4pSEiHw6GWt6IfBcCRb",
     appleUrl: "https://podcasts.apple.com/us/podcast/e198-2028-el-a%C3%B1o-que-todos-quedaremos-sin-trabajo/id1661010704?i=1000753189322",
     spotify: { plays: 1450, consumptionHrs: 246, medianTime: "34m 3s", videoViewers: 236, videoViewerPct: 76.4, watchHrs: 107 },
     apple: { plays: null },
@@ -349,6 +349,12 @@ export default function WeniaDashboard() {
                           border: "1px solid rgba(255,0,0,0.2)",
                           padding: "4px 10px", borderRadius: 6, background: "rgba(255,0,0,0.05)",
                         }}>▶ YouTube</a>
+                      <a href={ep.spotifyUrl} target="_blank" rel="noopener noreferrer"
+                        style={{
+                          fontSize: 10, color: "#1DB954", textDecoration: "none",
+                          border: "1px solid rgba(29,185,84,0.2)",
+                          padding: "4px 10px", borderRadius: 6, background: "rgba(29,185,84,0.05)",
+                        }}>♫ Spotify</a>
                       <a href={ep.appleUrl} target="_blank" rel="noopener noreferrer"
                         style={{
                           fontSize: 10, color: "#A855F7", textDecoration: "none",
