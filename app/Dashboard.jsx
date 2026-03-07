@@ -350,7 +350,7 @@ export default function WeniaDashboard() {
                 {/* Stats: simple, consistent */}
                 <div style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(3, 1fr)",
+                  gridTemplateColumns: "repeat(4, 1fr)",
                   gap: 8,
                 }}>
                   <div style={{
@@ -369,6 +369,15 @@ export default function WeniaDashboard() {
                     <div style={{ fontSize: 9, color: "#52525B", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>Spotify</div>
                     <div style={{ fontSize: 16, fontWeight: 700, color: spPlays > 0 ? "#1DB954" : "#3F3F46" }}>
                       {spPlays > 0 ? fmt(spPlays) : "—"}
+                    </div>
+                  </div>
+                  <div style={{
+                    background: "rgba(255,255,255,0.02)", borderRadius: 6,
+                    padding: "8px 10px", border: "1px solid rgba(255,255,255,0.03)",
+                  }}>
+                    <div style={{ fontSize: 9, color: "#52525B", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>Apple *</div>
+                    <div style={{ fontSize: 16, fontWeight: 700, color: appleEst > 0 ? "#A855F7" : "#3F3F46" }}>
+                      {appleEst > 0 ? "~" + fmt(appleEst) : "—"}
                     </div>
                   </div>
                   <div style={{
