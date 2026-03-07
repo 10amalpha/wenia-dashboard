@@ -458,10 +458,12 @@ export default function WeniaDashboard() {
           borderTop: "1px solid rgba(255,255,255,0.04)",
           paddingTop: 16,
           display: "flex", justifyContent: "space-between",
-          alignItems: "center", flexWrap: "wrap", gap: 12,
+          alignItems: "flex-start", flexWrap: "wrap", gap: 12,
         }}>
-          <div style={{ fontSize: 10, color: "#3F3F46" }}>
-            {fetchedAt ? `YouTube actualizado: ${fetchedAt.toLocaleString("es-ES")}` : "Cargando..."}
+          <div style={{ fontSize: 10, color: "#3F3F46", lineHeight: 1.6 }}>
+            <div>▶ YouTube — en vivo{fetchedAt ? ` · ${fetchedAt.toLocaleString("es-ES")}` : ""}</div>
+            <div>♫ Spotify — última actualización: 7 mar 2026</div>
+            <div>🎧 Apple — estimado según proporción de mercado</div>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
             <div style={{ fontSize: 10, color: "#3F3F46" }}>Powered by</div>
