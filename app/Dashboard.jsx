@@ -147,7 +147,7 @@ export default function WeniaDashboard() {
       }} />
 
       <div style={{
-        maxWidth: 860, margin: "0 auto", padding: "40px 20px",
+        maxWidth: 860, margin: "0 auto", padding: "clamp(20px, 4vw, 40px) clamp(14px, 3vw, 20px)",
         position: "relative", zIndex: 1,
         opacity: loaded ? 1 : 0,
         transform: loaded ? "translateY(0)" : "translateY(12px)",
@@ -193,7 +193,7 @@ export default function WeniaDashboard() {
         <div style={{
           background: "linear-gradient(135deg, rgba(212,168,67,0.06), rgba(34,197,94,0.04))",
           border: "1px solid rgba(212,168,67,0.12)",
-          borderRadius: 16, padding: "32px 28px", marginBottom: 28,
+          borderRadius: 16, padding: "clamp(20px, 4vw, 32px) clamp(16px, 3vw, 28px)", marginBottom: 28,
           textAlign: "center",
         }}>
           <div style={{
@@ -216,7 +216,7 @@ export default function WeniaDashboard() {
 
           {/* Platform breakdown */}
           <div style={{
-            display: "flex", justifyContent: "center", gap: 24,
+            display: "flex", justifyContent: "center", gap: "clamp(12px, 3vw, 24px)",
             flexWrap: "wrap",
           }}>
             {[
@@ -350,7 +350,7 @@ export default function WeniaDashboard() {
                 {/* Stats: simple, consistent */}
                 <div style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
+                  gridTemplateColumns: "repeat(3, 1fr)",
                   gap: 8,
                 }}>
                   <div style={{
