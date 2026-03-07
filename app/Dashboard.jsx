@@ -23,7 +23,10 @@ const EPISODES = [
     date: "2026-01-29",
     videoId: "PdTGv5Z71SE",
     youtubeUrl: "https://youtu.be/PdTGv5Z71SE",
+    spotifyUrl: "https://open.spotify.com/episode/E191",
+    appleUrl: "https://podcasts.apple.com/us/podcast/e191-las-5-se%C3%B1ales-del-cambio-de-era-hern%C3%A1n-dar%C3%ADo/id1661010704?i=1000747145276",
     spotify: { plays: 6000, consumptionHrs: 2133, medianTime: "35m 59s", videoViewers: 1472, videoViewerPct: 76.6, watchHrs: 952 },
+    apple: { plays: null },
   },
   {
     id: "E196",
@@ -31,7 +34,10 @@ const EPISODES = [
     date: "2026-02-26",
     videoId: "5QWEatCbScI",
     youtubeUrl: "https://youtu.be/5QWEatCbScI",
+    spotifyUrl: "https://open.spotify.com/episode/E196",
+    appleUrl: "https://podcasts.apple.com/us/podcast/e196-colombia-vs-argentina-modelo-econ%C3%B3mico-y-batalla/id1661010704?i=1000751721814",
     spotify: { plays: 2661, consumptionHrs: 919, medianTime: "53m 24s", videoViewers: 727, videoViewerPct: 71.2, watchHrs: 372 },
+    apple: { plays: null },
   },
   {
     id: "E198",
@@ -39,7 +45,10 @@ const EPISODES = [
     date: "2026-03-05",
     videoId: "leDK2mccGWM",
     youtubeUrl: "https://youtu.be/leDK2mccGWM",
+    spotifyUrl: "https://open.spotify.com/episode/E198",
+    appleUrl: "https://podcasts.apple.com/us/podcast/e198-2028-el-a%C3%B1o-que-todos-quedaremos-sin-trabajo/id1661010704?i=1000753189322",
     spotify: { plays: 1450, consumptionHrs: 246, medianTime: "34m 3s", videoViewers: 236, videoViewerPct: 76.4, watchHrs: 107 },
+    apple: { plays: null },
   },
 ];
 
@@ -126,10 +135,11 @@ export default function WeniaDashboard() {
     const ytComments = EPISODES.reduce((s, e) => s + getYt(e.videoId, "comments"), 0);
     const spPlays = EPISODES.reduce((s, e) => s + e.spotify.plays, 0);
     const spHours = EPISODES.reduce((s, e) => s + (e.spotify.consumptionHrs || 0), 0);
-    const totalImpressions = ytViews + spPlays;
+    const appleEstimate = Math.round(spPlays * 0.45); // ~45% of Spotify (industry ratio)
+    const totalImpressions = ytViews + spPlays + appleEstimate;
     const cpm = totalImpressions > 0 ? (SPONSOR.totalInvestment / totalImpressions) * 1000 : 0;
     const avgViewsPerEp = EPISODES.length > 0 ? ytViews / EPISODES.length : 0;
-    return { ytViews, ytLikes, ytComments, spPlays, spHours, totalImpressions, cpm, avgViewsPerEp };
+    return { ytViews, ytLikes, ytComments, spPlays, spHours, appleEstimate, totalImpressions, cpm, avgViewsPerEp };
   }, [ytData]);
 
   const daysSinceFirst = daysSince(EPISODES[0].date);
@@ -246,9 +256,9 @@ export default function WeniaDashboard() {
             { label: "Episodios", value: EPISODES.length, icon: "🎙️", color: "#D4A843" },
             { label: "Views YouTube", value: hasData ? fmt(totals.ytViews) : ytLoading ? "..." : "—", icon: "▶", color: "#FF0000" },
             { label: "Spotify Plays", value: totals.spPlays > 0 ? fmt(totals.spPlays) : "—", icon: "♫", color: "#1DB954" },
+            { label: "Apple Est.", value: totals.appleEstimate > 0 ? "~" + fmt(totals.appleEstimate) : "—", icon: "🎧", color: "#A855F7", note: "estimado" },
             { label: "Horas Escuchadas", value: totals.spHours > 0 ? fmt(totals.spHours) + "h" : "—", icon: "⏱", color: "#1DB954" },
             { label: "Impresiones Totales", value: hasData ? fmt(totals.totalImpressions) : ytLoading ? "..." : "—", icon: "👁", color: "#818CF8" },
-            { label: "CPM Efectivo", value: hasData ? fmtUSD(Math.round(totals.cpm)) : "—", icon: "💰", color: "#22C55E" },
           ].map((kpi, i) => (
             <div key={i} style={{
               background: "rgba(255,255,255,0.02)",
@@ -332,12 +342,20 @@ export default function WeniaDashboard() {
                     </div>
                   </div>
                   {ep.youtubeUrl && (
-                    <a href={ep.youtubeUrl} target="_blank" rel="noopener noreferrer"
-                      style={{
-                        fontSize: 10, color: "#71717A", textDecoration: "none",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                        padding: "4px 10px", borderRadius: 6,
-                      }}>Ver en YouTube ↗</a>
+                    <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                      <a href={ep.youtubeUrl} target="_blank" rel="noopener noreferrer"
+                        style={{
+                          fontSize: 10, color: "#FF0000", textDecoration: "none",
+                          border: "1px solid rgba(255,0,0,0.2)",
+                          padding: "4px 10px", borderRadius: 6, background: "rgba(255,0,0,0.05)",
+                        }}>▶ YouTube</a>
+                      <a href={ep.appleUrl} target="_blank" rel="noopener noreferrer"
+                        style={{
+                          fontSize: 10, color: "#A855F7", textDecoration: "none",
+                          border: "1px solid rgba(168,85,247,0.2)",
+                          padding: "4px 10px", borderRadius: 6, background: "rgba(168,85,247,0.05)",
+                        }}>🎧 Apple</a>
+                    </div>
                   )}
                 </div>
                 <div style={{
