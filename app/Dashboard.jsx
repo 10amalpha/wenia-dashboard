@@ -371,11 +371,9 @@ export default function WeniaDashboard() {
                 }}>
                   {[
                     { label: "Views YT", value: views, color: "#FF0000", isYt: true },
-                    { label: "Likes", value: likes, color: "#F59E0B", isYt: true },
+                    { label: "Likes YT", value: likes, color: "#F59E0B", isYt: true },
                     { label: "Spotify Plays", value: ep.spotify.plays, color: "#1DB954", isYt: false },
                     { label: "Listen Hours", value: ep.spotify.consumptionHrs, color: "#1DB954", isYt: false },
-                    { label: "Video Viewers", value: ep.spotify.videoViewers, color: "#A855F7", isYt: false, pct: ep.spotify.videoViewerPct },
-                    { label: "Median Listen", value: null, color: "#D4A843", isYt: false, text: ep.spotify.medianTime },
                   ].map((stat, j) => (
                     <div key={j} style={{
                       background: "rgba(255,255,255,0.02)",
@@ -388,11 +386,10 @@ export default function WeniaDashboard() {
                       }}>{stat.label}</div>
                       <div style={{
                         fontSize: 16, fontWeight: 700,
-                        color: (ytLoading && stat.isYt) ? "#3F3F46" : (stat.text || (stat.value && stat.value > 0)) ? stat.color : "#3F3F46",
+                        color: (ytLoading && stat.isYt) ? "#3F3F46" : stat.value > 0 ? stat.color : "#3F3F46",
                       }}>
-                        {stat.text ? stat.text : (ytLoading && stat.isYt) ? "..." : stat.value > 0 ? fmt(stat.value) : "—"}
+                        {(ytLoading && stat.isYt) ? "..." : stat.value > 0 ? fmt(stat.value) : "—"}
                       </div>
-                      {stat.pct && <div style={{ fontSize: 9, color: "#71717A", marginTop: 2 }}>{stat.pct}% vio video</div>}
                     </div>
                   ))}
                 </div>
