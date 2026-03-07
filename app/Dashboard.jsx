@@ -18,20 +18,20 @@ const SPONSOR = {
 
 const EPISODES = [
   {
-    id: "E196",
-    title: "Colombia 🇨🇴 vs Argentina 🇦🇷. Modelo económico y batalla cultural.",
-    date: "2026-02-14",
-    videoId: "5QWEatCbScI",
-    youtubeUrl: "https://youtu.be/5QWEatCbScI",
-    spotify: { plays: 2665 },
-  },
-  {
     id: "E191",
     title: "Las 5 señales del cambio de era",
-    date: "2026-02-28",
+    date: "2026-01-29",
     videoId: "PdTGv5Z71SE",
     youtubeUrl: "https://youtu.be/PdTGv5Z71SE",
-    spotify: { plays: 1421 },
+    spotify: { plays: 6000, consumptionHrs: 2133, medianTime: "35m 59s", videoViewers: 1472, videoViewerPct: 76.6, watchHrs: 952 },
+  },
+  {
+    id: "E196",
+    title: "Colombia 🇨🇴 vs Argentina 🇦🇷. Modelo económico y batalla cultural.",
+    date: "2026-02-26",
+    videoId: "5QWEatCbScI",
+    youtubeUrl: "https://youtu.be/5QWEatCbScI",
+    spotify: { plays: 2661, consumptionHrs: 919, medianTime: "53m 24s", videoViewers: 727, videoViewerPct: 71.2, watchHrs: 372 },
   },
   {
     id: "E198",
@@ -39,7 +39,7 @@ const EPISODES = [
     date: "2026-03-05",
     videoId: "leDK2mccGWM",
     youtubeUrl: "https://youtu.be/leDK2mccGWM",
-    spotify: { plays: 1200 },
+    spotify: { plays: 1450, consumptionHrs: 246, medianTime: "34m 3s", videoViewers: 236, videoViewerPct: 76.4, watchHrs: 107 },
   },
 ];
 
@@ -125,10 +125,11 @@ export default function WeniaDashboard() {
     const ytLikes = EPISODES.reduce((s, e) => s + getYt(e.videoId, "likes"), 0);
     const ytComments = EPISODES.reduce((s, e) => s + getYt(e.videoId, "comments"), 0);
     const spPlays = EPISODES.reduce((s, e) => s + e.spotify.plays, 0);
+    const spHours = EPISODES.reduce((s, e) => s + (e.spotify.consumptionHrs || 0), 0);
     const totalImpressions = ytViews + spPlays;
     const cpm = totalImpressions > 0 ? (SPONSOR.totalInvestment / totalImpressions) * 1000 : 0;
     const avgViewsPerEp = EPISODES.length > 0 ? ytViews / EPISODES.length : 0;
-    return { ytViews, ytLikes, ytComments, spPlays, totalImpressions, cpm, avgViewsPerEp };
+    return { ytViews, ytLikes, ytComments, spPlays, spHours, totalImpressions, cpm, avgViewsPerEp };
   }, [ytData]);
 
   const daysSinceFirst = daysSince(EPISODES[0].date);
@@ -244,10 +245,10 @@ export default function WeniaDashboard() {
           {[
             { label: "Episodios", value: EPISODES.length, icon: "🎙️", color: "#D4A843" },
             { label: "Views YouTube", value: hasData ? fmt(totals.ytViews) : ytLoading ? "..." : "—", icon: "▶", color: "#FF0000" },
-            { label: "Likes", value: hasData ? fmt(totals.ytLikes) : ytLoading ? "..." : "—", icon: "👍", color: "#F59E0B" },
+            { label: "Spotify Plays", value: totals.spPlays > 0 ? fmt(totals.spPlays) : "—", icon: "♫", color: "#1DB954" },
+            { label: "Horas Escuchadas", value: totals.spHours > 0 ? fmt(totals.spHours) + "h" : "—", icon: "⏱", color: "#1DB954" },
             { label: "Impresiones Totales", value: hasData ? fmt(totals.totalImpressions) : ytLoading ? "..." : "—", icon: "👁", color: "#818CF8" },
             { label: "CPM Efectivo", value: hasData ? fmtUSD(Math.round(totals.cpm)) : "—", icon: "💰", color: "#22C55E" },
-            { label: "Inversión Total", value: fmtUSD(SPONSOR.totalInvestment), icon: "📊", color: "#D4A843" },
           ].map((kpi, i) => (
             <div key={i} style={{
               background: "rgba(255,255,255,0.02)",
@@ -345,10 +346,12 @@ export default function WeniaDashboard() {
                   gap: 8,
                 }}>
                   {[
-                    { label: "Views", value: views, color: "#FF0000", isYt: true },
+                    { label: "Views YT", value: views, color: "#FF0000", isYt: true },
                     { label: "Likes", value: likes, color: "#F59E0B", isYt: true },
-                    { label: "Comments", value: comments, color: "#818CF8", isYt: true },
-                    { label: "Spotify", value: ep.spotify.plays, color: "#1DB954", isYt: false },
+                    { label: "Spotify Plays", value: ep.spotify.plays, color: "#1DB954", isYt: false },
+                    { label: "Listen Hours", value: ep.spotify.consumptionHrs, color: "#1DB954", isYt: false },
+                    { label: "Video Viewers", value: ep.spotify.videoViewers, color: "#A855F7", isYt: false, pct: ep.spotify.videoViewerPct },
+                    { label: "Median Listen", value: null, color: "#D4A843", isYt: false, text: ep.spotify.medianTime },
                   ].map((stat, j) => (
                     <div key={j} style={{
                       background: "rgba(255,255,255,0.02)",
@@ -361,10 +364,11 @@ export default function WeniaDashboard() {
                       }}>{stat.label}</div>
                       <div style={{
                         fontSize: 16, fontWeight: 700,
-                        color: (ytLoading && stat.isYt) ? "#3F3F46" : stat.value > 0 ? stat.color : "#3F3F46",
+                        color: (ytLoading && stat.isYt) ? "#3F3F46" : (stat.text || (stat.value && stat.value > 0)) ? stat.color : "#3F3F46",
                       }}>
-                        {(ytLoading && stat.isYt) ? "..." : stat.value > 0 ? fmt(stat.value) : "—"}
+                        {stat.text ? stat.text : (ytLoading && stat.isYt) ? "..." : stat.value > 0 ? fmt(stat.value) : "—"}
                       </div>
+                      {stat.pct && <div style={{ fontSize: 9, color: "#71717A", marginTop: 2 }}>{stat.pct}% vio video</div>}
                     </div>
                   ))}
                 </div>
