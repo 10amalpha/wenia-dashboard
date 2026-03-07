@@ -25,7 +25,7 @@ const EPISODES = [
     appleUrl: "https://podcasts.apple.com/us/podcast/e191-las-5-se%C3%B1ales-del-cambio-de-era-hern%C3%A1n-dar%C3%ADo/id1661010704?i=1000747145276",
     xUrl: "https://x.com/10ampro/status/2016853835294396623",
     substackUrl: "https://www.10am.pro/p/e191-las-5-senales-del-cambio-de",
-    spotify: { plays: 6000 },
+    spotify: { plays: 6016 },
     x: { impressions: 1669 },
     substack: { views: 3460 },
   },
@@ -39,7 +39,7 @@ const EPISODES = [
     appleUrl: "https://podcasts.apple.com/us/podcast/e196-colombia-vs-argentina-modelo-econ%C3%B3mico-y-batalla/id1661010704?i=1000751721814",
     xUrl: "https://x.com/10ampro/status/2027001953679446069",
     substackUrl: "https://www.10am.pro/p/e196-colombia-vs-argentina-modelo",
-    spotify: { plays: 2661 },
+    spotify: { plays: 2721 },
     x: { impressions: 1421 },
     substack: { views: 2900 },
   },
@@ -53,7 +53,7 @@ const EPISODES = [
     appleUrl: "https://podcasts.apple.com/us/podcast/e198-2028-el-a%C3%B1o-que-todos-quedaremos-sin-trabajo/id1661010704?i=1000753189322",
     xUrl: "https://x.com/10ampro/status/2029538669133283685",
     substackUrl: "https://www.10am.pro/p/e198-2028-el-ano-que-todos-quedaremos",
-    spotify: { plays: 1450 },
+    spotify: { plays: 1977 },
     x: { impressions: 2450 },
     substack: { views: 2550 },
   },
@@ -91,10 +91,19 @@ export default function WeniaDashboard() {
   const [ytLoading, setYtLoading] = useState(true);
   const [ytError, setYtError] = useState(null);
   const [fetchedAt, setFetchedAt] = useState(null);
+  const [autoStats, setAutoStats] = useState(null);
 
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 100);
     return () => clearTimeout(t);
+  }, []);
+
+  // Try to load cached auto-stats from localStorage
+  useEffect(() => {
+    try {
+      const cached = window.localStorage?.getItem("wenia_auto_stats");
+      if (cached) setAutoStats(JSON.parse(cached));
+    } catch (e) {}
   }, []);
 
   const fetchYouTubeData = useCallback(async () => {
@@ -129,16 +138,31 @@ export default function WeniaDashboard() {
 
   const getYt = (videoId, field) => ytData[videoId]?.[field] || 0;
 
+  // Get Spotify/X/Substack data: auto-stats first, fallback to hardcoded
+  const getSpotifyPlays = (ep) => {
+    if (autoStats?.[ep.id]?.spotify_plays > 0) return autoStats[ep.id].spotify_plays;
+    return ep.spotify.plays;
+  };
+  const getXImpressions = (ep) => {
+    if (autoStats?.[ep.id]?.x_impressions > 0) return autoStats[ep.id].x_impressions;
+    return ep.x?.impressions || 0;
+  };
+  const getSubstackViews = (ep) => {
+    if (autoStats?.[ep.id]?.substack_views > 0) return autoStats[ep.id].substack_views;
+    return ep.substack?.views || 0;
+  };
+  const autoUpdatedAt = autoStats?.updated_at ? new Date(autoStats.updated_at) : null;
+
   const totals = useMemo(() => {
     const ytViews = EPISODES.reduce((s, e) => s + getYt(e.videoId, "views"), 0);
-    const spPlays = EPISODES.reduce((s, e) => s + e.spotify.plays, 0);
+    const spPlays = EPISODES.reduce((s, e) => s + getSpotifyPlays(e), 0);
     const appleEst = Math.round(spPlays * 0.45);
-    const xImpressions = EPISODES.reduce((s, e) => s + (e.x?.impressions || 0), 0);
-    const substackViews = EPISODES.reduce((s, e) => s + (e.substack?.views || 0), 0);
+    const xImpressions = EPISODES.reduce((s, e) => s + getXImpressions(e), 0);
+    const substackViews = EPISODES.reduce((s, e) => s + getSubstackViews(e), 0);
     const totalReach = ytViews + spPlays + appleEst + xImpressions + substackViews;
     const cpm = totalReach > 0 ? (SPONSOR.totalInvestment / totalReach) * 1000 : 0;
     return { ytViews, spPlays, appleEst, xImpressions, substackViews, totalReach, cpm };
-  }, [ytData]);
+  }, [ytData, autoStats]);
 
   const daysSinceFirst = daysSince(EPISODES[0].date);
   const hasData = totals.ytViews > 0;
@@ -302,9 +326,9 @@ export default function WeniaDashboard() {
 
           {EPISODES.map((ep, i) => {
             const views = getYt(ep.videoId, "views");
-            const spPlays = ep.spotify.plays;
-            const xImpr = ep.x?.impressions || 0;
-            const ssViews = ep.substack?.views || 0;
+            const spPlays = getSpotifyPlays(ep);
+            const xImpr = getXImpressions(ep);
+            const ssViews = getSubstackViews(ep);
             const appleEst = Math.round(spPlays * 0.45);
             const epTotal = views + spPlays + appleEst + xImpr + ssViews;
             return (
@@ -519,9 +543,9 @@ export default function WeniaDashboard() {
         }}>
           <div style={{ fontSize: 10, color: "#3F3F46", lineHeight: 1.6 }}>
             <div>▶ YouTube — en vivo{fetchedAt ? ` · ${fetchedAt.toLocaleString("es-ES")}` : ""}</div>
-            <div>♫ Spotify — última actualización: 7 mar 2026</div>
-            <div>𝕏 X — última actualización: 7 mar 2026</div>
-            <div>✉ Substack — última actualización: 7 mar 2026</div>
+            <div>♫ Spotify — {autoUpdatedAt ? `auto-actualizado: ${autoUpdatedAt.toLocaleDateString("es-ES")}` : "última actualización: 7 mar 2026"}</div>
+            <div>𝕏 X — {autoUpdatedAt ? `auto-actualizado: ${autoUpdatedAt.toLocaleDateString("es-ES")}` : "última actualización: 7 mar 2026"}</div>
+            <div>✉ Substack — {autoUpdatedAt ? `auto-actualizado: ${autoUpdatedAt.toLocaleDateString("es-ES")}` : "última actualización: 7 mar 2026"}</div>
             <div>🎧 Apple — estimado según proporción de mercado</div>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
