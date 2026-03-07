@@ -23,7 +23,9 @@ const EPISODES = [
     youtubeUrl: "https://youtu.be/PdTGv5Z71SE",
     spotifyUrl: "https://open.spotify.com/episode/6aM1jKEPafXHAHlu5LlCez",
     appleUrl: "https://podcasts.apple.com/us/podcast/e191-las-5-se%C3%B1ales-del-cambio-de-era-hern%C3%A1n-dar%C3%ADo/id1661010704?i=1000747145276",
+    xUrl: "https://x.com/10ampro/status/2016853835294396623",
     spotify: { plays: 6000 },
+    x: { impressions: 1669 },
   },
   {
     id: "E196",
@@ -33,7 +35,9 @@ const EPISODES = [
     youtubeUrl: "https://youtu.be/5QWEatCbScI",
     spotifyUrl: "https://open.spotify.com/episode/0vDtyoSUsQdMLfm9qGMOtt",
     appleUrl: "https://podcasts.apple.com/us/podcast/e196-colombia-vs-argentina-modelo-econ%C3%B3mico-y-batalla/id1661010704?i=1000751721814",
+    xUrl: "https://x.com/10ampro/status/2027001953679446069",
     spotify: { plays: 2661 },
+    x: { impressions: 1421 },
   },
   {
     id: "E198",
@@ -43,7 +47,9 @@ const EPISODES = [
     youtubeUrl: "https://youtu.be/leDK2mccGWM",
     spotifyUrl: "https://open.spotify.com/episode/2Cv4pSEiHw6GWt6IfBcCRb",
     appleUrl: "https://podcasts.apple.com/us/podcast/e198-2028-el-a%C3%B1o-que-todos-quedaremos-sin-trabajo/id1661010704?i=1000753189322",
+    xUrl: "https://x.com/10ampro/status/2029538669133283685",
     spotify: { plays: 1450 },
+    x: { impressions: 2450 },
   },
 ];
 
@@ -121,9 +127,10 @@ export default function WeniaDashboard() {
     const ytViews = EPISODES.reduce((s, e) => s + getYt(e.videoId, "views"), 0);
     const spPlays = EPISODES.reduce((s, e) => s + e.spotify.plays, 0);
     const appleEst = Math.round(spPlays * 0.45);
-    const totalReach = ytViews + spPlays + appleEst;
+    const xImpressions = EPISODES.reduce((s, e) => s + (e.x?.impressions || 0), 0);
+    const totalReach = ytViews + spPlays + appleEst + xImpressions;
     const cpm = totalReach > 0 ? (SPONSOR.totalInvestment / totalReach) * 1000 : 0;
-    return { ytViews, spPlays, appleEst, totalReach, cpm };
+    return { ytViews, spPlays, appleEst, xImpressions, totalReach, cpm };
   }, [ytData]);
 
   const daysSinceFirst = daysSince(EPISODES[0].date);
@@ -222,6 +229,7 @@ export default function WeniaDashboard() {
             {[
               { label: "YouTube", value: hasData ? fmt(totals.ytViews) : "...", color: "#FF0000", icon: "▶" },
               { label: "Spotify", value: fmt(totals.spPlays), color: "#1DB954", icon: "♫" },
+              { label: "X", value: fmt(totals.xImpressions), color: "#E4E4E7", icon: "𝕏" },
               { label: "Apple Podcasts", value: "~" + fmt(totals.appleEst), color: "#A855F7", icon: "🎧", est: true },
             ].map((p, i) => (
               <div key={i} style={{ textAlign: "center" }}>
@@ -287,8 +295,9 @@ export default function WeniaDashboard() {
           {EPISODES.map((ep, i) => {
             const views = getYt(ep.videoId, "views");
             const spPlays = ep.spotify.plays;
+            const xImpr = ep.x?.impressions || 0;
             const appleEst = Math.round(spPlays * 0.45);
-            const epTotal = views + spPlays + appleEst;
+            const epTotal = views + spPlays + appleEst + xImpr;
             return (
               <div key={ep.id}
                 onMouseEnter={() => setHoveredEp(i)}
@@ -338,6 +347,12 @@ export default function WeniaDashboard() {
                         border: "1px solid rgba(29,185,84,0.2)",
                         padding: "4px 10px", borderRadius: 6, background: "rgba(29,185,84,0.05)",
                       }}>♫ Spotify</a>
+                    <a href={ep.xUrl} target="_blank" rel="noopener noreferrer"
+                      style={{
+                        fontSize: 10, color: "#E4E4E7", textDecoration: "none",
+                        border: "1px solid rgba(255,255,255,0.15)",
+                        padding: "4px 10px", borderRadius: 6, background: "rgba(255,255,255,0.03)",
+                      }}>𝕏 Post</a>
                     <a href={ep.appleUrl} target="_blank" rel="noopener noreferrer"
                       style={{
                         fontSize: 10, color: "#A855F7", textDecoration: "none",
@@ -350,7 +365,7 @@ export default function WeniaDashboard() {
                 {/* Stats: simple, consistent */}
                 <div style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(4, 1fr)",
+                  gridTemplateColumns: "repeat(5, 1fr)",
                   gap: 8,
                 }}>
                   <div style={{
@@ -369,6 +384,15 @@ export default function WeniaDashboard() {
                     <div style={{ fontSize: 9, color: "#52525B", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>Spotify</div>
                     <div style={{ fontSize: 16, fontWeight: 700, color: spPlays > 0 ? "#1DB954" : "#3F3F46" }}>
                       {spPlays > 0 ? fmt(spPlays) : "—"}
+                    </div>
+                  </div>
+                  <div style={{
+                    background: "rgba(255,255,255,0.02)", borderRadius: 6,
+                    padding: "8px 10px", border: "1px solid rgba(255,255,255,0.03)",
+                  }}>
+                    <div style={{ fontSize: 9, color: "#52525B", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 3 }}>X</div>
+                    <div style={{ fontSize: 16, fontWeight: 700, color: xImpr > 0 ? "#E4E4E7" : "#3F3F46" }}>
+                      {xImpr > 0 ? fmt(xImpr) : "—"}
                     </div>
                   </div>
                   <div style={{
@@ -472,6 +496,7 @@ export default function WeniaDashboard() {
           <div style={{ fontSize: 10, color: "#3F3F46", lineHeight: 1.6 }}>
             <div>▶ YouTube — en vivo{fetchedAt ? ` · ${fetchedAt.toLocaleString("es-ES")}` : ""}</div>
             <div>♫ Spotify — última actualización: 7 mar 2026</div>
+            <div>𝕏 X — última actualización: 7 mar 2026</div>
             <div>🎧 Apple — estimado según proporción de mercado</div>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
