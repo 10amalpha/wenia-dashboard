@@ -370,10 +370,8 @@ export default function WeniaDashboard() {
                   gap: 8,
                 }}>
                   {[
-                    { label: "Views YT", value: views, color: "#FF0000", isYt: true },
-                    { label: "Likes YT", value: likes, color: "#F59E0B", isYt: true },
+                    { label: "Views YouTube", value: views, color: "#FF0000", isYt: true },
                     { label: "Plays Spotify", value: ep.spotify.plays, color: "#1DB954", isYt: false },
-                    { label: "Hrs Consumo", value: ep.spotify.consumptionHrs, color: "#1DB954", isYt: false },
                   ].map((stat, j) => (
                     <div key={j} style={{
                       background: "rgba(255,255,255,0.02)",
