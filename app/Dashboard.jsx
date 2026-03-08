@@ -73,6 +73,8 @@ const EPISODES = [
   },
 ];
 
+const YT_CHANNEL_ID = "UC1yKEFqN6Tzz9DTK7fwS3LQ"; // 10AMPRO YouTube channel
+
 const CHANNEL_AUDIENCE = {
   youtube: 23300,
   spotify: 38600,
@@ -106,6 +108,7 @@ export default function WeniaDashboard() {
   const [ytError, setYtError] = useState(null);
   const [fetchedAt, setFetchedAt] = useState(null);
   const [autoStats, setAutoStats] = useState(null);
+  const [ytSubs, setYtSubs] = useState(null);
 
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 100);
@@ -141,6 +144,17 @@ export default function WeniaDashboard() {
       }
       setYtData(mapped);
       setFetchedAt(new Date());
+      // Also fetch channel subscriber count
+      try {
+        const chUrl = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${YT_CHANNEL_ID}&key=${YT_API_KEY}`;
+        const chRes = await fetch(chUrl);
+        if (chRes.ok) {
+          const chData = await chRes.json();
+          if (chData.items?.[0]?.statistics?.subscriberCount) {
+            setYtSubs(parseInt(chData.items[0].statistics.subscriberCount));
+          }
+        }
+      } catch (e) {}
     } catch (err) {
       setYtError(err.message);
     } finally {
@@ -526,14 +540,14 @@ export default function WeniaDashboard() {
             Ecosistema 10AMPRO
           </div>
           <div style={{ fontSize: 11, color: "#52525B", marginBottom: 16 }}>
-            Más allá de los episodios patrocinados, tu marca tiene presencia en un ecosistema de {fmt(Object.values(CHANNEL_AUDIENCE).reduce((a, b) => a + b, 0))} seguidores.
+            Más allá de los episodios patrocinados, tu marca tiene presencia en un ecosistema de {fmt((ytSubs || CHANNEL_AUDIENCE.youtube) + CHANNEL_AUDIENCE.spotify + CHANNEL_AUDIENCE.apple + CHANNEL_AUDIENCE.tiktok + CHANNEL_AUDIENCE.instagram)} seguidores.
           </div>
           <div style={{
             display: "flex", justifyContent: "center", gap: 16,
             flexWrap: "wrap",
           }}>
             {[
-              { name: "YouTube", value: CHANNEL_AUDIENCE.youtube, color: "#FF0000", icon: "▶" },
+              { name: "YouTube", value: ytSubs || CHANNEL_AUDIENCE.youtube, color: "#FF0000", icon: "▶" },
               { name: "Spotify", value: CHANNEL_AUDIENCE.spotify, color: "#1DB954", icon: "♫" },
               { name: "TikTok", value: CHANNEL_AUDIENCE.tiktok, color: "#E4E4E7", icon: "♪" },
               { name: "Instagram", value: CHANNEL_AUDIENCE.instagram, color: "#E1306C", icon: "📷" },
