@@ -16,6 +16,20 @@ const SPONSOR = {
 
 const EPISODES = [
   {
+    id: "E190",
+    title: "Forecast 2026",
+    date: "2026-01-22",
+    videoId: "yIPNyvVyApk",
+    youtubeUrl: "https://youtu.be/yIPNyvVyApk",
+    spotifyUrl: "https://open.spotify.com/episode/2AuulJKgCSMJ6RfFkKWO4O",
+    appleUrl: "https://podcasts.apple.com/cm/podcast/e190-forecast-2026-hern%C3%A1n-jaramillo-dar%C3%ADo-palacio-andr%C3%A9s/id1661010704?i=1000746183252",
+    xUrl: "https://x.com/10ampro/status/2014317120536875511",
+    substackUrl: "https://www.10am.pro/p/e190-forecast-2026",
+    spotify: { plays: 6762 },
+    x: { impressions: 2692 },
+    substack: { views: 4401 },
+  },
+  {
     id: "E191",
     title: "Las 5 señales del cambio de era",
     date: "2026-01-29",
