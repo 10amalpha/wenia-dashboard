@@ -90,11 +90,11 @@ const EPISODES = [
 const YT_CHANNEL_ID = "UC1yKEFqN6Tzz9DTK7fwS3LQ"; // 10AMPRO YouTube channel
 
 const CHANNEL_AUDIENCE = {
-  youtube: 23300,
-  spotify: 38600,
+  youtube: 23600,
+  spotify: 38629,
   apple: 6000,
   tiktok: 48800,
-  instagram: 16200,
+  instagram: 16995,
 };
 
 // ═══════════════════════════════════════════════════════════════
