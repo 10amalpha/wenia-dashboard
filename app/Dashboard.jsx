@@ -104,11 +104,11 @@ const EPISODES = [
 const YT_CHANNEL_ID = "UC1yKEFqN6Tzz9DTK7fwS3LQ"; // 10AMPRO YouTube channel
 
 const CHANNEL_AUDIENCE = {
-  youtube: 23600,
-  spotify: 38629,
+  youtube: 23700,
+  spotify: 38600,
   apple: 6000,
   tiktok: 48800,
-  instagram: 16995,
+  instagram: 17000,
 };
 
 // ═══════════════════════════════════════════════════════════════
@@ -599,9 +599,9 @@ export default function WeniaDashboard() {
         }}>
           <div style={{ fontSize: 10, color: "#3F3F46", lineHeight: 1.6 }}>
             <div>▶ YouTube — en vivo{fetchedAt ? ` · ${fetchedAt.toLocaleString("es-ES")}` : ""}</div>
-            <div>♫ Spotify — {autoUpdatedAt ? `auto-actualizado: ${autoUpdatedAt.toLocaleDateString("es-ES")}` : "última actualización: 7 mar 2026"}</div>
-            <div>𝕏 X — {autoUpdatedAt ? `auto-actualizado: ${autoUpdatedAt.toLocaleDateString("es-ES")}` : "última actualización: 7 mar 2026"}</div>
-            <div>✉ Substack — {autoUpdatedAt ? `auto-actualizado: ${autoUpdatedAt.toLocaleDateString("es-ES")}` : "última actualización: 7 mar 2026"}</div>
+            <div>♫ Spotify — {autoUpdatedAt ? `auto-actualizado: ${autoUpdatedAt.toLocaleDateString("es-ES")}` : "última actualización: 21 mar 2026"}</div>
+            <div>𝕏 X — {autoUpdatedAt ? `auto-actualizado: ${autoUpdatedAt.toLocaleDateString("es-ES")}` : "última actualización: 21 mar 2026"}</div>
+            <div>✉ Substack — {autoUpdatedAt ? `auto-actualizado: ${autoUpdatedAt.toLocaleDateString("es-ES")}` : "última actualización: 21 mar 2026"}</div>
             <div>🎧 Apple — estimado según proporción de mercado</div>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
