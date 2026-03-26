@@ -1,6 +1,6 @@
 # Wenia Sponsor Dashboard — Status
 
-**Last updated:** March 21, 2026
+**Last updated:** March 27, 2026
 **Repo:** `10amalpha/wenia-dashboard`
 **Live:** https://wenia-dashboard.vercel.app
 **File to edit:** `app/Dashboard.jsx` → `EPISODES` array
@@ -11,20 +11,21 @@
 
 - **Sponsor:** Wenia
 - **Total investment:** $4,000
-- **Sponsored episodes:** E190, E191, E196, E198, E199, E200
+- **Sponsored episodes:** E190, E191, E196, E198, E199, E200, E201
 
 ---
 
-## Current Episode Stats (as of Mar 21, 2026)
+## Current Episode Stats (as of Mar 27, 2026)
 
 | Ep | Date | videoId | Spotify | X | Substack |
 |---|---|---|---|---|---|
-| E190 | 2026-01-22 | yIPNyvVyApk | 6,874 | 2,692 | 4,440 |
-| E191 | 2026-01-29 | PdTGv5Z71SE | 6,163 | 1,667 | 3,480 |
-| E196 | 2026-02-26 | 5QWEatCbScI | 3,165 | 1,438 | 3,090 |
-| E198 | 2026-03-05 | leDK2mccGWM | 5,660 | 2,987 | 3,160 |
-| E199 | 2026-03-12 | aVXkfdDOQJw | 2,696 | 1,250 | 2,740 |
-| E200 | 2026-03-19 | QbS-TGwMuw0 | 1,477 | 1,247 | 2,460 |
+| E190 | 2026-01-22 | yIPNyvVyApk | 6,874 | 2,697 | 4,460 |
+| E191 | 2026-01-29 | PdTGv5Z71SE | 6,163 | 1,673 | 3,490 |
+| E196 | 2026-02-26 | 5QWEatCbScI | 3,165 | 1,444 | 3,160 |
+| E198 | 2026-03-05 | leDK2mccGWM | 5,660 | 2,996 | 3,350 |
+| E199 | 2026-03-12 | aVXkfdDOQJw | 2,871 | 1,273 | 2,890 |
+| E200 | 2026-03-19 | QbS-TGwMuw0 | 3,547 | 1,352 | 3,220 |
+| E201 | 2026-03-26 | w-JmwyOLuU8 | 261 | 1,366 | 2,150 |
 
 **YouTube views** are fetched live via API — not stored here.
 
@@ -37,12 +38,19 @@
 | YouTube | **Auto (API)** | Live via `googleapis.com/youtube/v3/videos`. API key in code. No action needed. |
 | Spotify | **Manual** | Go to `creators.spotify.com/pod/show/5zdwe972gB7eJ2lGIEeJjD/episodes`. Use the **second column** (Spotify plays), NOT the first (Streams & downloads). |
 | Apple Podcasts | **Auto (estimated)** | Calculated as `Spotify × 0.45` in code. No action needed. |
-| X (Twitter) | **Manual** | Navigate to each episode's `xUrl` and read the "Views" count from the post. |
+| X (Twitter) | **Manual** | Export CSV from X Analytics (`account_analytics_content`) and parse Impressions column by post ID. |
 | Substack | **Manual** | Go to `10am.pro/publish/posts/published`. Read "Views" (shown as e.g. "2.46k") for each episode. |
 
 ---
 
 ## Episode Links
+
+### E201 — Medellín tiene que convertirse en el Energy Valley. Ricardo Sierra
+- YouTube: https://youtu.be/w-JmwyOLuU8
+- Spotify: https://open.spotify.com/episode/0JNPcy5YwYOeNUHQzkrkpi
+- Apple: https://podcasts.apple.com/co/podcast/e201-medell%C3%ADn-tiene-que-convertirse-en-el-energy/id1661010704?i=1000757463944
+- X: https://x.com/10ampro/status/2037148813643952380
+- Substack: https://www.10am.pro/p/e201-medellin-tiene-que-convertirse
 
 ### E200 — Irán 🇮🇷, petróleo 🛢, dólar 💵 y drones
 - YouTube: https://youtu.be/QbS-TGwMuw0
@@ -107,7 +115,7 @@ When adding a new episode or refreshing stats:
 1. **Clone:** `git clone --depth=1 https://x-access-token:${PAT}@github.com/10amalpha/wenia-dashboard.git /tmp/wenia-dashboard`
 2. **Collect new episode info:** videoId (from YouTube URL), title, date, all platform links
 3. **Fetch Spotify:** `creators.spotify.com/pod/show/5zdwe972gB7eJ2lGIEeJjD/episodes` → 2nd column
-4. **Fetch X:** Navigate to each `xUrl` → read Views
+4. **Fetch X:** Export CSV from X Analytics and parse Impressions by post ID
 5. **Fetch Substack:** `10am.pro/publish/posts/published` → read Views per episode
 6. **Edit** `app/Dashboard.jsx`:
    - Update ALL episodes' Spotify/X/Substack stats (they grow over time)

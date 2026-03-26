@@ -106,7 +106,7 @@ const EPISODES = [
     videoId: "w-JmwyOLuU8",
     youtubeUrl: "https://youtu.be/w-JmwyOLuU8",
     spotifyUrl: "https://open.spotify.com/episode/0JNPcy5YwYOeNUHQzkrkpi",
-    appleUrl: "",
+    appleUrl: "https://podcasts.apple.com/co/podcast/e201-medell%C3%ADn-tiene-que-convertirse-en-el-energy/id1661010704?i=1000757463944",
     xUrl: "https://x.com/10ampro/status/2037148813643952380",
     substackUrl: "https://www.10am.pro/p/e201-medellin-tiene-que-convertirse",
     spotify: { plays: 261 },
