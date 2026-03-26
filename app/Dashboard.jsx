@@ -26,7 +26,7 @@ const EPISODES = [
     xUrl: "https://x.com/10ampro/status/2014317120536875511",
     substackUrl: "https://www.10am.pro/p/e190-forecast-2026",
     spotify: { plays: 6874 },
-    x: { impressions: 2692 },
+    x: { impressions: 2697 },
     substack: { views: 4440 },
   },
   {
@@ -40,7 +40,7 @@ const EPISODES = [
     xUrl: "https://x.com/10ampro/status/2016853835294396623",
     substackUrl: "https://www.10am.pro/p/e191-las-5-senales-del-cambio-de",
     spotify: { plays: 6163 },
-    x: { impressions: 1667 },
+    x: { impressions: 1673 },
     substack: { views: 3480 },
   },
   {
@@ -54,7 +54,7 @@ const EPISODES = [
     xUrl: "https://x.com/10ampro/status/2027001953679446069",
     substackUrl: "https://www.10am.pro/p/e196-colombia-vs-argentina-modelo",
     spotify: { plays: 3165 },
-    x: { impressions: 1438 },
+    x: { impressions: 1444 },
     substack: { views: 3090 },
   },
   {
@@ -68,7 +68,7 @@ const EPISODES = [
     xUrl: "https://x.com/10ampro/status/2029538669133283685",
     substackUrl: "https://www.10am.pro/p/e198-2028-el-ano-que-todos-quedaremos",
     spotify: { plays: 5660 },
-    x: { impressions: 2987 },
+    x: { impressions: 2996 },
     substack: { views: 3160 },
   },
   {
@@ -82,7 +82,7 @@ const EPISODES = [
     xUrl: "https://x.com/10ampro/status/2032075383693091213",
     substackUrl: "https://www.10am.pro/p/e199-construyendo-el-internet-del",
     spotify: { plays: 2696 },
-    x: { impressions: 1250 },
+    x: { impressions: 1273 },
     substack: { views: 2740 },
   },
   {
@@ -96,8 +96,22 @@ const EPISODES = [
     xUrl: "https://x.com/10ampro/status/2034612098651848950",
     substackUrl: "https://www.10am.pro/p/e200-iran-petroleo-dolar-y-drones",
     spotify: { plays: 1477 },
-    x: { impressions: 1247 },
+    x: { impressions: 1352 },
     substack: { views: 2460 },
+  },
+  {
+    id: "E201",
+    title: "Medellín tiene que convertirse en el Energy Valley. Ricardo Sierra",
+    date: "2026-03-26",
+    videoId: "w-JmwyOLuU8",
+    youtubeUrl: "https://youtu.be/w-JmwyOLuU8",
+    spotifyUrl: "",
+    appleUrl: "",
+    xUrl: "https://x.com/10ampro/status/2037148813643952380",
+    substackUrl: "",
+    spotify: { plays: 0 },
+    x: { impressions: 1366 },
+    substack: { views: 0 },
   },
 ];
 
