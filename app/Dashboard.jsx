@@ -27,7 +27,7 @@ const EPISODES = [
     substackUrl: "https://www.10am.pro/p/e190-forecast-2026",
     spotify: { plays: 6874 },
     x: { impressions: 2697 },
-    substack: { views: 4440 },
+    substack: { views: 4460 },
   },
   {
     id: "E191",
@@ -41,7 +41,7 @@ const EPISODES = [
     substackUrl: "https://www.10am.pro/p/e191-las-5-senales-del-cambio-de",
     spotify: { plays: 6163 },
     x: { impressions: 1673 },
-    substack: { views: 3480 },
+    substack: { views: 3490 },
   },
   {
     id: "E196",
@@ -55,7 +55,7 @@ const EPISODES = [
     substackUrl: "https://www.10am.pro/p/e196-colombia-vs-argentina-modelo",
     spotify: { plays: 3165 },
     x: { impressions: 1444 },
-    substack: { views: 3090 },
+    substack: { views: 3160 },
   },
   {
     id: "E198",
@@ -69,7 +69,7 @@ const EPISODES = [
     substackUrl: "https://www.10am.pro/p/e198-2028-el-ano-que-todos-quedaremos",
     spotify: { plays: 5660 },
     x: { impressions: 2996 },
-    substack: { views: 3160 },
+    substack: { views: 3350 },
   },
   {
     id: "E199",
@@ -83,7 +83,7 @@ const EPISODES = [
     substackUrl: "https://www.10am.pro/p/e199-construyendo-el-internet-del",
     spotify: { plays: 2871 },
     x: { impressions: 1273 },
-    substack: { views: 2740 },
+    substack: { views: 2890 },
   },
   {
     id: "E200",
@@ -97,7 +97,7 @@ const EPISODES = [
     substackUrl: "https://www.10am.pro/p/e200-iran-petroleo-dolar-y-drones",
     spotify: { plays: 3547 },
     x: { impressions: 1352 },
-    substack: { views: 2460 },
+    substack: { views: 3220 },
   },
   {
     id: "E201",
@@ -108,10 +108,10 @@ const EPISODES = [
     spotifyUrl: "https://open.spotify.com/episode/0JNPcy5YwYOeNUHQzkrkpi",
     appleUrl: "",
     xUrl: "https://x.com/10ampro/status/2037148813643952380",
-    substackUrl: "",
+    substackUrl: "https://www.10am.pro/p/e201-medellin-tiene-que-convertirse",
     spotify: { plays: 261 },
     x: { impressions: 1366 },
-    substack: { views: 0 },
+    substack: { views: 2150 },
   },
 ];
 
