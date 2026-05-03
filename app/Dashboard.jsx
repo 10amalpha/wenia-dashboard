@@ -119,9 +119,9 @@ const YT_CHANNEL_ID = "UC1yKEFqN6Tzz9DTK7fwS3LQ"; // 10AMPRO YouTube channel
 
 const CHANNEL_AUDIENCE = {
   youtube: 23800,
-  spotify: 36221,
+  spotify: 36527,
   apple: 6000,
-  tiktok: 50000,
+  tiktok: 50100,
   instagram: 17605,
 };
 
